@@ -75,7 +75,7 @@ const Report = () => {
                     <td>{report.elephantsDetected}</td>
                     <td>{report.confidence}</td>
                     <td>
-                        <Button variant="warning" href={`http://localhost:5000/reports/elephant_report_1.pdf`} download>
+                        <Button variant="warning" href={`https://elephant-detection-website-production.onrender.com/reports/elephant_report_1.pdf`} download>
                         Download PDF
                         </Button>
                     </td>

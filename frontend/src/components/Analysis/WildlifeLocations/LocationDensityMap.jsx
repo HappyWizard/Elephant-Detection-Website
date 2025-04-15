@@ -51,7 +51,7 @@ const LocationDensityMap = () => {
       .then((data) => setGeoData(data))
       .catch((error) => console.error("GeoJSON Fetch Error:", error));
 
-    fetch("http://localhost:5000/api/detection/get-location-density-data")
+    fetch("https://elephant-detection-website-production.onrender.com/api/detection/get-location-density-data")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch density data");
         return res.json();
