@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import Reports from "./Reports";
-import RecentDetections from "./recentDetections";
+import RecentDetections from "./RecentDetections";
 import RecentActivity from "./RecentActivity";
 import BudgetReport from "./BudgetReport";
 
