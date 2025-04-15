@@ -30,7 +30,7 @@ const TestDisplay = () => {
   // WebSocket connection to listen for real-time updates
   useEffect(() => {
     // Replace with your Node.js server's IP if needed
-    const ws = new WebSocket("ws://elephant-detection-website-production.onrender.com");
+    const ws = new WebSocket("wss://elephant-detection-website-production.onrender.com");
     // const ws = new WebSocket(`ws://192.168.180.88:5001`);
 
     ws.onopen = () => console.log("✅ WebSocket connection for Test Display opened.");

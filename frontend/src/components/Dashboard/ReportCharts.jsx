@@ -124,7 +124,7 @@ const ReportCharts = () => {
   }, [selectedDate, allDetections]);
   // WebSocket for real-time updates
   useEffect(() => {
-    const ws = new WebSocket("ws://elephant-detection-website-production.onrender.com");
+    const ws = new WebSocket("wss://elephant-detection-website-production.onrender.com");
     // const ws = new WebSocket(`ws://192.168.180.88:5001`);
     ws.onmessage = (event) => {
       const newDetection = JSON.parse(event.data);
