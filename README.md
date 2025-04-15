@@ -1,5 +1,9 @@
 Code Documentation
+for user reference:
+just click on the https://elephant-detection-website-production.onrender.com to enter website
 
+
+for my own reference:
 under root folder: elephant-detection-project
 
 npm init -y
