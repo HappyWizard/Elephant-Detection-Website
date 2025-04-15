@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 5000;
 // Fix for ES module: Get __dirname equivalent
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const __rootdirname = path.resolve();
 
 app.use(express.json());
 app.use(cors());
@@ -31,7 +32,11 @@ app.use("/api/yolo", yoloRoutes);
 
 // Serve static PDF reports
 app.use("/reports", express.static(path.join(__dirname, "public/reports")));
+app.use(express.static(path.join(__rootdirname, "/frontend/dist")));
 
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__rootdirname, "frontend", "dist", "index.html"));
+});
 // In server.js
 app.use(cors({
     origin: "http://localhost:5173", // Your frontend URL
