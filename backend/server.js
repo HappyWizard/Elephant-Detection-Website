@@ -11,6 +11,7 @@ import path from 'path';
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import { getGridFSBucket } from './utils/gridfs.js';  // Import the GridFS functions
+import http from "http";
 
 dotenv.config();
 
@@ -68,10 +69,14 @@ connectDB().then(() => {
     console.error("MongoDB connection error:", err);
 });
 
+const server = http.createServer(app);
+
+// ⬇ attach WebSocket to the same server
+const wss = new WebSocketServer({ server });
 
 // WebSocket Server
 // const wss = new WebSocketServer({ port: 5001 });
-const wss = new WebSocketServer({ port: 5001, host: '0.0.0.0' });
+// const wss = new WebSocketServer({ port: 5001, host: '0.0.0.0' });
 const clients = new Set(); // Track all connected frontend clients
 
 wss.on('connection', (ws) => {

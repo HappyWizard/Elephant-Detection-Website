@@ -25,7 +25,7 @@ const DonutChart = () => {
     // Fetch initial data via HTTP request
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/detection/get-detection-data");
+        const response = await axios.get("https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data");
         processDetectionData(response.data, false);
       } catch (error) {
         console.error("Error fetching detection data:", error);

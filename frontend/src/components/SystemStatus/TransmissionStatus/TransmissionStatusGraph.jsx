@@ -10,7 +10,7 @@ const TransmissionStatusGraph = () => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const res = await fetch("http://localhost:8081/api/pi-status"); // Adjust API URL
+        const res = await fetch("https://elephant-detection-website-production.onrender.com/api/pi-status"); // Adjust API URL
         const data = await res.json();
         setPiStatus(data);
       } catch (error) {
