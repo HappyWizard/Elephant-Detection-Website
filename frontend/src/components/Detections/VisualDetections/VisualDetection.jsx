@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../Dashboard/dashboard.css'
-import TestDisplay from '../../Dashboard/testDisplay'
+import TestDisplay from '../../Dashboard/TestDisplay'
 import DonutChart from './DonutChart'
 
 const VisualDetection = () => {
