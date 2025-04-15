@@ -10,7 +10,7 @@ const SystemStatusCharts = () => {
   const [temperatureData, setTemperatureData] = useState([]);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5001"); // Update with your WebSocket server
+    const socket = new WebSocket("wss://elephant-detection-website-production.onrender.com"); // Update with your WebSocket server
     
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);

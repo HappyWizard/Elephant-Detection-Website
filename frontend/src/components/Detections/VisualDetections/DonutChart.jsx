@@ -6,7 +6,7 @@ import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ws = new WebSocket("ws://localhost:5001"); // Adjust the backend URL if needed
+const ws = new WebSocket("wss://elephant-detection-website-production.onrender.com"); // Adjust the backend URL if needed
 
 const DonutChart = () => {
   const [data, setData] = useState({
