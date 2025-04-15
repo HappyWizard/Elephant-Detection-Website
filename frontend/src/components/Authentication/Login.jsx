@@ -42,7 +42,7 @@ const Login = () => {
     // Logic for login (could add API calls here)
     console.log({ email, password });
 
-    fetch("http://localhost:5000/api/users/login", {
+    fetch("https://elephant-detection-website-production.onrender.com/api/users/login", {
       method: "POST",
       crossDomain: true,
       headers: {

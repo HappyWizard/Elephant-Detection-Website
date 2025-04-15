@@ -30,7 +30,7 @@ const TestDisplay = () => {
   // WebSocket connection to listen for real-time updates
   useEffect(() => {
     // Replace with your Node.js server's IP if needed
-    const ws = new WebSocket("ws://localhost:5001");
+    const ws = new WebSocket("ws://elephant-detection-website-production.onrender.com");
     // const ws = new WebSocket(`ws://192.168.180.88:5001`);
 
     ws.onopen = () => console.log("✅ WebSocket connection for Test Display opened.");
@@ -75,7 +75,7 @@ const TestDisplay = () => {
               {card.image_file && (
                 <div>
                   <img
-                    src={`http://localhost:5000/api/detection/get-detection-files/${card.image_file}`}
+                    src={`https://elephant-detection-website-production.onrender.com/api/detection/get-detection-files/${card.image_file}`}
                     alt="Detected Object"
                     style={{ maxWidth: "300px", maxHeight: "300px" }}
                   />
@@ -86,7 +86,7 @@ const TestDisplay = () => {
                 <div>
                   <audio controls>
                     <source
-                      src={`http://localhost:5000/api/detection/get-detection-files/${card.sound_file}`}
+                      src={`https://elephant-detection-website-production.onrender.com/api/detection/get-detection-files/${card.sound_file}`}
                       type="audio/wav"
                     />
                     Your browser does not support the audio element.

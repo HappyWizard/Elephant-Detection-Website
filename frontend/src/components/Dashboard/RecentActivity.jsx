@@ -26,7 +26,7 @@ function RecentActivity() {
 
   useEffect(() => {
     // Connect to WebSocket server
-    const ws = new WebSocket("ws://localhost:5001"); // Update URL if hosted remotely
+    const ws = new WebSocket("ws://elephant-detection-website-production.onrender.com"); // Update URL if hosted remotely
     // const ws = new WebSocket(`ws://192.168.180.88:5001`);
 
     ws.onopen = () => {

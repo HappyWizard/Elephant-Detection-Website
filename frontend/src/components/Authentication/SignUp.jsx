@@ -27,7 +27,7 @@ const SignUp = () => {
     // Logic for sign-up (API call)
     console.log({ username, email, password });
 
-    fetch("http://localhost:5000/api/users/signup", {
+    fetch("https://elephant-detection-website-production.onrender.com/api/users/signup", {
       method: "POST",
       crossDomain: true,
       headers:{
