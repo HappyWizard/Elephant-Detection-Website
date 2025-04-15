@@ -38,7 +38,7 @@ export default function OTPVerification() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/password/verifyOTP", {
+      const response = await axios.post("https://elephant-detection-website-production.onrender.com/api/password/verifyOTP", {
         email,
         OTP: enteredOTP,
       });
@@ -76,7 +76,7 @@ export default function OTPVerification() {
     if (disable) return;
 
     try {
-      await axios.post("http://localhost:5000/api/password/verifyEmail", { email });
+      await axios.post("https://elephant-detection-website-production.onrender.com/api/password/verifyEmail", { email });
       toast({
         title: "OTP Resent",
         description: "A new OTP has been sent to your email.",

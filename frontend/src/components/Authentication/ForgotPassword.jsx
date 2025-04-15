@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     const OTP = Math.floor(Math.random() * 9000 + 1000);
     console.log(`Your OTP: ${OTP}`);
   
-    fetch("http://localhost:5000/api/password/verifyEmail", {
+    fetch("https://elephant-detection-website-production.onrender.com/api/password/verifyEmail", {
       method: "POST",
       crossDomain: true,
       headers: {
