@@ -12,7 +12,7 @@ function RecentDetections() {
 
   // Fetch detection data from the backend
   const fetchData = async () => {
-    fetch("http://localhost:5000/api/detection/get-detection-data")
+    fetch("https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data")
       .then((res) => res.json())
       .then((data) => {
         setItems(data.reverse());

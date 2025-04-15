@@ -10,7 +10,7 @@ const TestDisplay = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/detection/get-detection-data"
+          "https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
