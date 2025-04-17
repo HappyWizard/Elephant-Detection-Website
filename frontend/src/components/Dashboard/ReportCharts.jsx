@@ -114,7 +114,7 @@ const ReportCharts = () => {
       }
     };
     fetchData();
-  }, []);
+  });
   // Handle date change
   useEffect(() => {
     if (allDetections.length > 0) {
