@@ -108,8 +108,7 @@ const ReportCharts = () => {
         setAllDetections(data);
         
         const { series } = processData(data, selectedDate);
-        // updateChart(series);
-        setChartData(prev => ({ ...prev, series }));
+        updateChart(series);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -142,7 +141,7 @@ const ReportCharts = () => {
     };
     return () => ws.close();
   }, [allDetections, selectedDate]);
-
+  
   const updateChart = (series) => {
     setChartData(prev => ({
       ...prev,
