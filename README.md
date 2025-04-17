@@ -1,83 +1,14 @@
-Code Documentation
-for user reference:
-just click on the https://elephant-detection-website-production.onrender.com to enter website
+![image](https://github.com/user-attachments/assets/d3249a3a-2e36-4a9f-b50e-1d0a1c878efd)
 
+![image](https://github.com/user-attachments/assets/cbc84d06-6b8a-497b-be40-ed79d7339c69)
 
-for my own reference:
-under root folder: elephant-detection-project
+# What's this?
+This is a Year 3 University Group Project, we are sending real time elephant detection data via HTTP requests and Websockets from raspberry pi 4 and 5 to a website. 
 
-npm init -y
-npm i express mongoose dotenv
-npm i nodemon
+Dashboard tab and Visual Inspetion tab datas are real data
+Other tabs are just showing sample data
 
-under backend folder
-
-npm i cors jsonwebtoken
-npm i bcrypt
-npm install bcryptjs
-npm install ws
-npm install firebase-admin
-npm install firebase
-
-in order to use import express from 'express' instead of the require("express"), 
-you need to have this "type": "module" under package.json in the root folder
-
-in package.json file:
-change 
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-
-to 
-
-  "scripts": {
-    "dev": "nodemon backend/server.js"
-  },
-
-under frontend folder:
-
-npm create vite@latest .
-npm i 
-npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
-npm i react-router-dom
-npm i react-icons
-npm i jwt-decode
-npm install react-leaflet@4 leaflet
-npm i react-chartjs-2
-
-can do npm audit fix if asked
-
-react-leaflet@5.0.0 requires React 19.
-Your project is using React 18.3.1, so npm is refusing to install it.
-
-alternative: Upgrade to React 19 (If You Want Latest Features)
-npm install react@latest react-dom@latest
-npm install react-leaflet leaflet
-
-but i don't think tis is good idea, since react 19 is still new
-
-
-to use ionicons: 
-add     
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-at the index.html file
-
-also, at vite.config.js remember to change to this:
-export default defineConfig({
-  plugins: [react()],
-  server:{
-    proxy:{
-      "/api":{
-        target:"http://localhost:5000"
-      }
-    }
-  }
-})
-
-To Run :
-cd into backend, do npm run dev
-open another terminal
-cd into frontend, do npm run dev
-click into the local link
+# How to Enter Website
+1. Click into the provided link: https://elephant-detection-website-production.onrender.com/
+2. It may take a while for website to load when you first enter 
+3. Click on sign up to sign up, then you can login to enter the dashboard page
