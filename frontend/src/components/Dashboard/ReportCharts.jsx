@@ -108,13 +108,14 @@ const ReportCharts = () => {
         setAllDetections(data);
         
         const { series } = processData(data, selectedDate);
-        updateChart(series);
+        // updateChart(series);
+        setChartData(prev => ({ ...prev, series }));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  });
+  }, []);
   // Handle date change
   useEffect(() => {
     if (allDetections.length > 0) {
@@ -141,6 +142,7 @@ const ReportCharts = () => {
     };
     return () => ws.close();
   }, [allDetections, selectedDate]);
+
   const updateChart = (series) => {
     setChartData(prev => ({
       ...prev,
