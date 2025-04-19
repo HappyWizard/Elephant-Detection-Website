@@ -295,7 +295,7 @@ export const saveDetectionData = async (req, res) => {
     let imageFileId = null;
 
     // Upload sound file if available
-    if (req.files["sound_file"]) {
+    if (req.files && req.files["sound_file"] && req.files["sound_file"][0]) {
       const soundBuffer = req.files["sound_file"][0].buffer;
       const soundStream = Readable.from(soundBuffer);
 
@@ -311,7 +311,7 @@ export const saveDetectionData = async (req, res) => {
     }
 
     // Upload image file if available
-    if (req.files["image_file"]) {
+    if (req.files && req.files["image_file"] && req.files["image_file"][0]) {
       const imageBuffer = req.files["image_file"][0].buffer;
       const imageStream = Readable.from(imageBuffer);
 
