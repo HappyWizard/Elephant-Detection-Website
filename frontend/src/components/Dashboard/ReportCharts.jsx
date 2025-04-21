@@ -69,14 +69,18 @@ const ReportCharts = () => {
       }
     },
   });
+  const toMalaysiaDateStr = (date) => {
+    // Interpret incorrectly-labeled UTC as local time
+    const adjusted = new Date(date.getTime() - 8 * 60 * 60 * 1000);
+    return adjusted.toLocaleDateString("en-CA"); // e.g., "2025-04-21"
+  };
+  
   // Process data for the selected date
   const processData = (data, date) => {
-    const getLocalDateStr = (date) =>
-      date.toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
-  
-    const dateStr = getLocalDateStr(date);
+    const selectedDateStr = toMalaysiaDateStr(selectedDate);
+
     const filteredData = data.filter(item =>
-      getLocalDateStr(new Date(item.timestamp)) === dateStr
+      toMalaysiaDateStr(new Date(item.timestamp)) === selectedDateStr
     );
     // Group by object type and time
     const seriesMap = {};
@@ -134,10 +138,9 @@ const ReportCharts = () => {
       setAllDetections(prev => [newDetection, ...prev]);
       
       // Check if new detection is for the selected date
-      const getLocalDateStr = (date) => date.toLocaleDateString("en-CA");
-      const detectionDate = getLocalDateStr(new Date(newDetection.timestamp));
-      const selectedDateStr = getLocalDateStr(selectedDate);
-
+      const detectionDate = new Date(newDetection.timestamp).toISOString().split('T')[0];
+      const selectedDateStr = selectedDate.toISOString().split('T')[0];
+      
       if (detectionDate === selectedDateStr) {
         const { series } = processData([newDetection, ...allDetections], selectedDate);
         updateChart(series);
