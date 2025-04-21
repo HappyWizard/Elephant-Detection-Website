@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect} from "react";
 import Chart from "react-apexcharts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -77,10 +77,7 @@ const ReportCharts = () => {
   
   // Process data for the selected date
   const processData = (data, date) => {
-    const selectedDateStr = useMemo(() => 
-      toMalaysiaDateStr(selectedDate),
-      [selectedDate]
-    );
+    const selectedDateStr = toMalaysiaDateStr(selectedDate);
 
     const filteredData = data.filter(item =>
       toMalaysiaDateStr(new Date(item.timestamp)) === selectedDateStr
@@ -142,11 +139,8 @@ const ReportCharts = () => {
       
       // Check if new detection is for the selected date
       const detectionDate = toMalaysiaDateStr(new Date(newDetection.timestamp));
-      const selectedDateStr = useMemo(() => 
-        toMalaysiaDateStr(selectedDate),
-        [selectedDate]
-      );
-      
+      const selectedDateStr = toMalaysiaDateStr(selectedDate);
+
       if (detectionDate === selectedDateStr) {
         const { series } = processData([newDetection, ...allDetections], selectedDate);
         updateChart(series);
