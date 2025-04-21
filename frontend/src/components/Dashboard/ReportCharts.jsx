@@ -77,7 +77,7 @@ const ReportCharts = () => {
   
   // Process data for the selected date
   const processData = (data, date) => {
-    const selectedDateStr = toMalaysiaDateStr(date);
+    const selectedDateStr = toMalaysiaDateStr(selectedDate);
 
     const filteredData = data.filter(item =>
       toMalaysiaDateStr(new Date(item.timestamp)) === selectedDateStr
@@ -109,7 +109,7 @@ const ReportCharts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data`
+          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${selectedDate}`
         );
         const data = await response.json();
         setAllDetections(data);
