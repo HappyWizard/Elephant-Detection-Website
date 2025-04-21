@@ -138,8 +138,8 @@ const ReportCharts = () => {
       setAllDetections(prev => [newDetection, ...prev]);
       
       // Check if new detection is for the selected date
-      const detectionDate = new Date(newDetection.timestamp).toISOString().split('T')[0];
-      const selectedDateStr = selectedDate.toISOString().split('T')[0];
+      const detectionDate = toMalaysiaDateStr(new Date(newDetection.timestamp));
+      const selectedDateStr = toMalaysiaDateStr(selectedDate);
       
       if (detectionDate === selectedDateStr) {
         const { series } = processData([newDetection, ...allDetections], selectedDate);
