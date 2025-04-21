@@ -71,9 +71,12 @@ const ReportCharts = () => {
   });
   // Process data for the selected date
   const processData = (data, date) => {
-    const dateStr = date.toISOString().split('T')[0];
-    const filteredData = data.filter(item => 
-      new Date(item.timestamp).toISOString().split('T')[0] === dateStr
+    const getLocalDateStr = (date) =>
+      date.toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
+  
+    const dateStr = getLocalDateStr(date);
+    const filteredData = data.filter(item =>
+      getLocalDateStr(new Date(item.timestamp)) === dateStr
     );
     // Group by object type and time
     const seriesMap = {};
@@ -131,9 +134,10 @@ const ReportCharts = () => {
       setAllDetections(prev => [newDetection, ...prev]);
       
       // Check if new detection is for the selected date
-      const detectionDate = new Date(newDetection.timestamp).toISOString().split('T')[0];
-      const selectedDateStr = selectedDate.toISOString().split('T')[0];
-      
+      const getLocalDateStr = (date) => date.toLocaleDateString("en-CA");
+      const detectionDate = getLocalDateStr(new Date(newDetection.timestamp));
+      const selectedDateStr = getLocalDateStr(selectedDate);
+
       if (detectionDate === selectedDateStr) {
         const { series } = processData([newDetection, ...allDetections], selectedDate);
         updateChart(series);
