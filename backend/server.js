@@ -133,6 +133,15 @@ wss.on('connection', (ws) => {
                         message: 'Failed to store image',
                         error: error.message
                     }));
+                } finally {
+                    // Clean up if connection closes
+                    const cleanup = () => {
+                        if (uploadStream && !uploadStream.closed) {
+                            uploadStream.destroy();
+                        }
+                        ws.off('close', cleanup);
+                    };
+                    ws.on('close', cleanup);
                 }
             }
 

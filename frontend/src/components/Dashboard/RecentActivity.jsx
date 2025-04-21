@@ -38,7 +38,7 @@ function RecentActivity() {
       // console.log("New detection for recent activity received:", newDetection);
 
       // Update the detection data dynamically
-      setItems((prevCards) => [newDetection, ...prevCards]);
+      setItems(prev => [newDetection, ...prev.slice(0, 1000)]);
     };
 
     ws.onclose = () => {
@@ -60,7 +60,8 @@ function RecentActivity() {
         <div className="activity">
           {items &&
             items.length > 0 &&
-            items.map((item) => (
+            // In your map function, add a limit:
+            items.slice(0, 100).map((item) => (
               <RecentActivityItem key={item._id} item={item} />
             ))}
         </div>

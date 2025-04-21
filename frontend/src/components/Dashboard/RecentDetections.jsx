@@ -38,7 +38,7 @@ function RecentDetections() {
       console.log("New detection for detection table data received:", newDetection);
 
       // Update the detection data dynamically
-      setItems((prevCards) => [newDetection, ...prevCards]);
+      setItems(prev => [newDetection, ...prev.slice(0, 1000)]);
     };
 
     ws.onclose = () => {
@@ -56,7 +56,7 @@ function RecentDetections() {
         <h5 className="card-title">
           Recent Detections <span>/{filter}</span>
         </h5>
-        <DetectionsTable items={items} />
+        <DetectionsTable items={items.slice(0, 500)} />
       </div>
     </div>
   );

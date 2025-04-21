@@ -77,7 +77,10 @@ const ReportCharts = () => {
   
   // Process data for the selected date
   const processData = (data, date) => {
-    const selectedDateStr = toMalaysiaDateStr(selectedDate);
+    const selectedDateStr = useMemo(() => 
+      toMalaysiaDateStr(selectedDate),
+      [selectedDate]
+    );
 
     const filteredData = data.filter(item =>
       toMalaysiaDateStr(new Date(item.timestamp)) === selectedDateStr
@@ -109,7 +112,7 @@ const ReportCharts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data"
+          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${toMalaysiaDateStr(selectedDate)}`
         );
         const data = await response.json();
         setAllDetections(data);
@@ -135,11 +138,14 @@ const ReportCharts = () => {
     // const ws = new WebSocket(`ws://192.168.180.88:5001`);
     ws.onmessage = (event) => {
       const newDetection = JSON.parse(event.data);
-      setAllDetections(prev => [newDetection, ...prev]);
+      setAllDetections(prev => [newDetection, ...prev.slice(0, 1000)]);
       
       // Check if new detection is for the selected date
       const detectionDate = toMalaysiaDateStr(new Date(newDetection.timestamp));
-      const selectedDateStr = toMalaysiaDateStr(selectedDate);
+      const selectedDateStr = useMemo(() => 
+        toMalaysiaDateStr(selectedDate),
+        [selectedDate]
+      );
       
       if (detectionDate === selectedDateStr) {
         const { series } = processData([newDetection, ...allDetections], selectedDate);

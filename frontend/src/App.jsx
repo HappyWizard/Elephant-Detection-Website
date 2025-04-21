@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, Navigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -20,28 +20,27 @@ import SolarBatteryStatusPage from './pages/SolarBatteryStatusPage';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthChecked, setIsAuthChecked] = useState(false); // New state to track if auth check is done
-  const location = useLocation();
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
     const tokenExpiration = window.localStorage.getItem('tokenExpiration');
-
+    let timeoutId;
+  
     if (token && tokenExpiration) {
       const now = Date.now();
-
       if (now >= tokenExpiration) {
         logoutUser();
       } else {
-        setTimeout(() => {
-          logoutUser();
-        }, tokenExpiration - now);
+        timeoutId = setTimeout(logoutUser, tokenExpiration - now);
         setIsAuthenticated(true);
       }
-    } else {
+    }else {
       setIsAuthenticated(false);
     }
 
     setIsAuthChecked(true); // Mark that auth check is completed
+  
+    return () => clearTimeout(timeoutId); // Cleanup
   }, []);
 
   const logoutUser = () => {
