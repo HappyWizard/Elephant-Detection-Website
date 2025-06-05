@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from "multer";
-import { getDetectionData, getLocationDensity, saveDetectionData, getDetectionFiles } from '../controllers/detection.controller.js';
+import { getDetectionData, getAllDetectionData, getLocationDensity, saveDetectionData, getDetectionFiles } from '../controllers/detection.controller.js';
 
 const router = express.Router();
 
@@ -15,6 +15,8 @@ router.post("/send-detection-data", upload.fields([
 
 // website display data by fetching from this API, directly from the database
 router.get('/get-detection-data', getDetectionData)
+
+router.get('/get-all-detection-data', getAllDetectionData)
 
 router.get('/get-location-density-data', getLocationDensity)
 

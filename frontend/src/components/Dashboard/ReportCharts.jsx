@@ -109,7 +109,7 @@ const ReportCharts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${toMalaysiaDateStr(selectedDate)}`
+          `https://elephant-detection-website-production.onrender.com/api/detection/get-all-detection-data`
         );
         const data = await response.json();
         setAllDetections(data);
@@ -122,6 +122,7 @@ const ReportCharts = () => {
     };
     fetchData();
   }, []);
+
   // Handle date change
   useEffect(() => {
     if (allDetections.length > 0) {
@@ -129,6 +130,7 @@ const ReportCharts = () => {
       updateChart(series);
     }
   }, [selectedDate, allDetections]);
+
   // WebSocket for real-time updates
   useEffect(() => {
     const ws = new WebSocket("wss://elephant-detection-website-production.onrender.com");

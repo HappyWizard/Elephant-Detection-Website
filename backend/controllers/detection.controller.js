@@ -222,20 +222,21 @@ export const getLocationDensity = async (req, res) => {
 };
 
 // Backend: Get all detection data
-// export const getDetectionData = async (req, res) => {
-//   try {
-//     const detections = await Detection.find();
-//     res.status(200).json(detections);
-//   } catch (error) {
-//     console.error("Error fetching detection data:", error);
-//     res.status(500).json({ message: "Failed to fetch detection data" });
-//   }
-// };
+export const getAllDetectionData = async (req, res) => {
+  try {
+    const detections = await Detection.find();
+    res.status(200).json(detections);
+  } catch (error) {
+    console.error("Error fetching detection data:", error);
+    res.status(500).json({ message: "Failed to fetch detection data" });
+  }
+};
+
 export const getDetectionData = async (req, res) => {
   try {
     const { page, limit, date } = req.query;
 
-    // If a specific date is requested, filter by that date
+    // this date condition code doesn't work
     if (date) {
       const start = new Date(date);
       start.setHours(0, 0, 0, 0);
@@ -245,7 +246,7 @@ export const getDetectionData = async (req, res) => {
       const detections = await Detection.find({
         timestamp: { $gte: start, $lt: end }
       })
-        .sort({ createdAt: -1 })
+        .sort({ timestamp: -1  })
         .lean();
 
       return res.status(200).json(detections);
@@ -256,7 +257,7 @@ export const getDetectionData = async (req, res) => {
       const skip = (parseInt(page) - 1) * parseInt(limit);
       const [detections, total] = await Promise.all([
         Detection.find()
-          .sort({ createdAt: -1 })
+          .sort({ timestamp: -1  })
           .skip(skip)
           .limit(parseInt(limit))
           .lean(),
@@ -274,7 +275,7 @@ export const getDetectionData = async (req, res) => {
     // Default: return recent detections with optional limit
     const fallbackLimit = parseInt(limit) || 1000;
     const detections = await Detection.find()
-      .sort({ createdAt: -1 })
+      .sort({ timestamp: -1  })
       .limit(fallbackLimit)
       .lean();
 
