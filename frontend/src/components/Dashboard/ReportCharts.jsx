@@ -71,7 +71,8 @@ const ReportCharts = () => {
   });
   const toMalaysiaDateStr = (date) => {
     // Interpret incorrectly-labeled UTC as local time
-    const adjusted = new Date(date.getTime() - 8 * 60 * 60 * 1000);
+    // const adjusted = new Date(date.getTime() - 8 * 60 * 60 * 1000);
+    const adjusted = new Date(date.getTime());
     return adjusted.toLocaleDateString("en-CA"); // e.g., "2025-04-21"
   };
   
