@@ -16,7 +16,7 @@ const TestDisplay = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        setCards(data.reverse()); // Set fetched data to state
+        setCards(data); // Set fetched data to state
       } catch (error) {
         setError(error.message);
       } finally {
