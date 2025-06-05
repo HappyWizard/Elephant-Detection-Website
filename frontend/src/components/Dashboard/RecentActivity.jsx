@@ -4,7 +4,7 @@ import RecentActivityItem from "./RecentActivityItem";
 import "./recentActivity.css"
 
 function RecentActivity({ initialData = [] }) {
-  const [items, setItems] = useState(initialData.slice(0, 50)); // Initialize with limited data
+  const [items, setItems] = useState(initialData.slice(0, 25)); // Initialize with limited data
   const [filter, setFilter] = useState("Today");
 
   const handleFilterChange = (filter) => {

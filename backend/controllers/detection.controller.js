@@ -272,7 +272,7 @@ export const getDetectionData = async (req, res) => {
     }
 
     // Default: return recent detections with optional limit
-    const fallbackLimit = parseInt(limit) || 1000;
+    const fallbackLimit = parseInt(limit) || 10000;
     const detections = await Detection.find()
       .sort({ createdAt: -1 })
       .limit(fallbackLimit)

@@ -109,7 +109,7 @@ const ReportCharts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${selectedDate}`
+          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data`
         );
         const data = await response.json();
         setAllDetections(data);

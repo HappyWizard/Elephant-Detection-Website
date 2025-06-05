@@ -16,7 +16,7 @@ const Dashboard = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?limit=500" // Added limit
+          "https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?limit=1000" // Added limit
         );
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
