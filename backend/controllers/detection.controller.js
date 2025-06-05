@@ -222,15 +222,72 @@ export const getLocationDensity = async (req, res) => {
 };
 
 // Backend: Get all detection data
+// export const getDetectionData = async (req, res) => {
+//   try {
+//     const detections = await Detection.find();
+//     res.status(200).json(detections);
+//   } catch (error) {
+//     console.error("Error fetching detection data:", error);
+//     res.status(500).json({ message: "Failed to fetch detection data" });
+//   }
+// };
 export const getDetectionData = async (req, res) => {
   try {
-    const detections = await Detection.find();
+    const { page, limit, date } = req.query;
+
+    // If a specific date is requested, filter by that date
+    if (date) {
+      const start = new Date(date);
+      start.setHours(0, 0, 0, 0);
+      const end = new Date(start);
+      end.setDate(end.getDate() + 1);
+
+      const detections = await Detection.find({
+        timestamp: { $gte: start, $lt: end }
+      })
+        .sort({ createdAt: -1 })
+        .lean();
+
+      return res.status(200).json(detections);
+    }
+
+    // Handle pagination
+    if (page && limit) {
+      const skip = (parseInt(page) - 1) * parseInt(limit);
+      const [detections, total] = await Promise.all([
+        Detection.find()
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(parseInt(limit))
+          .lean(),
+        Detection.countDocuments()
+      ]);
+
+      return res.status(200).json({
+        data: detections,
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(total / limit),
+        totalItems: total
+      });
+    }
+
+    // Default: return recent detections with optional limit
+    const fallbackLimit = parseInt(limit) || 1000;
+    const detections = await Detection.find()
+      .sort({ createdAt: -1 })
+      .limit(fallbackLimit)
+      .lean();
+
     res.status(200).json(detections);
   } catch (error) {
     console.error("Error fetching detection data:", error);
-    res.status(500).json({ message: "Failed to fetch detection data" });
+    res.status(500).json({ 
+      message: "Failed to fetch detection data",
+      error: error.message 
+    });
   }
 };
+
 
 export const getDetectionFiles = async (req, res) => {
   try {

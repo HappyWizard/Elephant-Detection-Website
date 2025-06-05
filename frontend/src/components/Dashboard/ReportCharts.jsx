@@ -71,7 +71,7 @@ const ReportCharts = () => {
   });
   const toMalaysiaDateStr = (date) => {
     // Interpret incorrectly-labeled UTC as local time
-    const adjusted = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+    const adjusted = new Date(date.getTime() - 8 * 60 * 60 * 1000);
     return adjusted.toLocaleDateString("en-CA"); // e.g., "2025-04-21"
   };
   
@@ -109,7 +109,7 @@ const ReportCharts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${selectedDate}`
+          `https://elephant-detection-website-production.onrender.com/api/detection/get-detection-data?date=${toMalaysiaDateStr(selectedDate)}`
         );
         const data = await response.json();
         setAllDetections(data);
