@@ -4,7 +4,7 @@ import CardFilter from "./CardFilter";
 import DetectionsTable from "./DetectionsTable";
 
 function RecentDetections({ initialData = [] }) {
-  const [items, setItems] = useState(initialData.slice(0, 50)); // Initialize with limited data
+  const [items, setItems] = useState(initialData.slice(0, 100)); // Initialize with limited data
   const [filter, setFilter] = useState("Today");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
