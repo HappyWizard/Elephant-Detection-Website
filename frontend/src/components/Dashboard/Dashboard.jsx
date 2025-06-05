@@ -44,12 +44,12 @@ const Dashboard = () => {
                 <Reports /> 
               </div>
               <div className="col-12">
-                <RecentDetections data={data} /> {/* Pass full data */}
+                <RecentDetections initialData={data} /> {/* Pass full data */}
               </div>
             </div>
           </div>
           <div className="col-lg-4">
-            <RecentActivity data={data} /> {/* Pass full data */}
+            <RecentActivity initialData={data} /> {/* Pass full data */}
             <BudgetReport />
           </div>
         </div>
