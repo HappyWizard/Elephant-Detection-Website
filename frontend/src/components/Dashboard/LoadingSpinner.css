@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(2px);
+  /* backdrop-filter: blur(2px); */
   z-index: 994;
 }
 
