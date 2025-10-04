@@ -3,7 +3,10 @@ import React, { useState, useEffect} from "react";
 import Chart from "react-apexcharts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./LoadingSpinner.css"; // Import the CSS for spinner and overlay
+
 const ReportCharts = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [allDetections, setAllDetections] = useState([]);
   const [chartData, setChartData] = useState({
@@ -108,6 +111,7 @@ const ReportCharts = () => {
   // Fetch initial data
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(
           `https://elephant-detection-website-production.onrender.com/api/detection/get-all-detection-data`
@@ -119,7 +123,9 @@ const ReportCharts = () => {
         updateChart(series);
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
+      } finally {
+        setIsLoading(false);
+    }
     };
     fetchData();
   }, []);
@@ -127,8 +133,10 @@ const ReportCharts = () => {
   // Handle date change
   useEffect(() => {
     if (allDetections.length > 0) {
+      setIsLoading(true);
       const { series } = processData(allDetections, selectedDate);
       updateChart(series);
+      setTimeout(() => setIsLoading(false), 500); // small delay for smoother UX
     }
   }, [selectedDate, allDetections]);
 
@@ -159,24 +167,42 @@ const ReportCharts = () => {
     }));
   };
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <div className="mb-3">
-        <label className="form-label me-2">Select Date:</label> 
+        <label className="form-label me-2">Select Date:</label>
         <DatePicker
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
           className="form-control"
           maxDate={new Date()}
+          disabled={isLoading}
         />
       </div>
-      
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type={chartData.options.chart.type}
-        height={chartData.options.chart.height}
-      />
+
+      {/* Chart container with dim effect */}
+      <div
+        style={{
+          opacity: isLoading ? 0.4 : 1,
+          pointerEvents: isLoading ? "none" : "auto",
+          transition: "opacity 0.3s ease",
+        }}
+      >
+        <Chart
+          options={chartData.options}
+          series={chartData.series}
+          type={chartData.options.chart?.type || "line"}
+          height={chartData.options.chart?.height || 350}
+        />
+      </div>
+
+      {/* Spinner Overlay */}
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <div className="loading-text">Loading data...</div>
+        </div>
+      )}
     </div>
   );
-};
+}
 export default ReportCharts;
