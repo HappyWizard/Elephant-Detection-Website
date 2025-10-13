@@ -9,6 +9,8 @@ const ReportCharts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [allDetections, setAllDetections] = useState([]);
+  const [darkMode, setDarkMode] = useState(false); // 🌓 Add dark mode state
+
   const [chartData, setChartData] = useState({
     series: [],
     options: {
@@ -17,6 +19,7 @@ const ReportCharts = () => {
         type: "area",
         stacked: false,
         toolbar: { show: false },
+        background: "transparent", // works for both themes
       },
       markers: {
         size: 4,
@@ -40,6 +43,7 @@ const ReportCharts = () => {
         curve: "smooth",
         width: 2,
       },
+      theme: { mode: "light" }, // 🔆 initial mode
       xaxis: {
         type: "datetime",
         labels: {
@@ -50,10 +54,12 @@ const ReportCharts = () => {
               minute: '2-digit',
               hour12: true
             });
-          }
+          },
+          style: { colors: "#333" }, // default label color
         }
       },
       tooltip: {
+        theme: "light",
         x: {
           formatter: function(value) {
             return new Date(value).toLocaleTimeString("en-US", {
@@ -68,7 +74,8 @@ const ReportCharts = () => {
       },
       legend: {
         position: "top",
-        horizontalAlign: "right"
+        horizontalAlign: "right",
+        labels: { colors: "#333" },
       }
     },
   });
@@ -166,17 +173,51 @@ const ReportCharts = () => {
       series,
     }));
   };
+
+  // 🌓 Toggle function
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+    setChartData((prev) => ({
+      ...prev,
+      options: {
+        ...prev.options,
+        theme: { mode: !darkMode ? "dark" : "light" },
+        tooltip: { theme: !darkMode ? "dark" : "light" },
+        xaxis: {
+          ...prev.options.xaxis,
+          labels: {
+            ...prev.options.xaxis.labels,
+            style: { colors: !darkMode ? "#eee" : "#333" },
+          },
+        },
+        legend: {
+          ...prev.options.legend,
+          labels: { colors: !darkMode ? "#eee" : "#333" },
+        },
+      },
+    }));
+  };
+
   return (
     <div style={{ position: "relative" }}>
-      <div className="mb-3">
-        <label className="form-label me-2">Select Date:</label>
-        <DatePicker
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          className="form-control"
-          maxDate={new Date()}
-          disabled={isLoading}
-        />
+      <div className="d-flex align-items-center justify-content-between mb-3">
+        <div>
+          <label className="form-label me-2">Select Date:</label>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              className="form-control"
+              maxDate={new Date()}
+              disabled={isLoading}
+            />
+          </div>
+          <button
+            className="btn btn-secondary"
+            onClick={toggleDarkMode}
+            disabled={isLoading}
+          >
+            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+          </button>             
       </div>
 
       {/* Chart container with dim effect */}
@@ -204,5 +245,5 @@ const ReportCharts = () => {
       )}
     </div>
   );
-}
+};
 export default ReportCharts;
